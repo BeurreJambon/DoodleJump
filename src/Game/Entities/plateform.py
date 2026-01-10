@@ -2,8 +2,6 @@ from Utils.loader import load_image, load_sprite
 from settings import *
 import random
 
-plateforms = []
-
 class Plateform:
     def __init__(self):
         self.sprite_sheet = load_image("game_tiles.png")
@@ -13,3 +11,6 @@ class Plateform:
     def detectCollision(self, joueur):
         if joueur.rect.colliderect(self.rect):
             print(123)
+
+    def draw(self, game):
+        game.screen.blit( self.image_plateform, self.rect)

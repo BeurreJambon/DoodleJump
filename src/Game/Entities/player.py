@@ -41,3 +41,5 @@ class Player:
         if self.rect.y >= 735:
             self.velocity_y = self.jump_force
         
+    def draw(self, game):
+        game.screen.blit(self.imagePlayer, self.rect) #On affiche le joueur
