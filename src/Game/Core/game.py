@@ -4,6 +4,7 @@ from Utils.loader import load_image
 from Entities.player import Player
 from Entities.plateform import  plateforms, Plateform
 from Core.events import getKeyPress
+import random
 
 class Game:
     def __init__(self):
@@ -16,6 +17,8 @@ class Game:
         self.plateform = Plateform()
         plateforms.append(self.plateform)
         self.running = True
+        self.startGame()
+
 
 
     def run(self):     #Boucle de jeu
@@ -28,19 +31,31 @@ class Game:
             self.clock.tick(FPS)
             getKeyPress(self.player)
             self.draw()
+            print(len(plateforms))
 
 
         pygame.quit()
 
     def draw(self):
         self.screen.fill((0, 0, 0)) #Supprime tout les éléments
-        self.player.jump()
         self.player.update()
         self.screen.blit(self.backGround, (0, 0)) #On affiche le fond
-        #for i in plateforms:
-            #self.screen.blit( i.image_plateform, i.rect)
+
+        for i in plateforms:
+            #i.detectCollision(self.player)
+            #i.update(self.player)
+            i.update(self.player)
+            i.addPlatform()
+            self.screen.blit( i.image_plateform, i.rect)
+            if (self.player.detectCollision(i) or self.player.rect.y > HEIGHT) and self.player.isFalling:
+                self.player.jump()
+            i.deletePlatform()
+
         self.screen.blit( self.plateform.image_plateform, self.plateform.rect)
-
         self.screen.blit(self.player.imagePlayer, self.player.rect) #On affiche le joueur
-
         pygame.display.flip() #Permet d'afficher tout ce qui est "dessiner" en mémoire
+
+    def startGame(self):
+        for i in range(15):
+            self.plateform = Plateform(random.randrange(100, 700))
+            plateforms.append(self.plateform)
