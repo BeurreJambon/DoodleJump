@@ -2,7 +2,7 @@ import pygame
 from settings import WIDTH, HEIGHT, FPS
 from Utils.loader import load_image
 from Entities.player import Player
-from Entities.plateform import Plateform, plateforms
+from Entities.plateform import  plateforms, Plateform
 from Core.events import getKeyPress
 
 class Game:
@@ -13,6 +13,8 @@ class Game:
         self.clock = pygame.time.Clock()
         self.backGround = load_image("BackGround.png") # load() stock en mémoire
         self.player = Player(320, 600)
+        self.plateform = Plateform()
+        plateforms.append(self.plateform)
         self.running = True
 
 
@@ -21,6 +23,7 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+
 
             self.clock.tick(FPS)
             getKeyPress(self.player)
@@ -34,9 +37,9 @@ class Game:
         self.player.jump()
         self.player.update()
         self.screen.blit(self.backGround, (0, 0)) #On affiche le fond
-
-        for i in plateforms:
-            self.screen.blit( i.image_plateform, i.rect)
+        #for i in plateforms:
+            #self.screen.blit( i.image_plateform, i.rect)
+        self.screen.blit( self.plateform.image_plateform, self.plateform.rect)
 
         self.screen.blit(self.player.imagePlayer, self.player.rect) #On affiche le joueur
 

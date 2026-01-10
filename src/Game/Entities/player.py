@@ -1,4 +1,5 @@
 from Utils.loader import load_image
+from settings import *
 
 class Player:
     def __init__(self, x, y):
@@ -26,6 +27,12 @@ class Player:
 
         self.rect.y += self.velocity_y
         self.velocity_y += 0.5
+
+        if self.rect.x > WIDTH:
+            self.rect.x = 0
+
+        if self.rect.x < 0:
+            self.rect.x = WIDTH
 
 
 
