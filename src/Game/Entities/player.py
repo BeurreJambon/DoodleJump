@@ -54,6 +54,5 @@ class Player:
             self.isFalling = False
         
     def detectCollision(self, platform):
-        #if self.rect.colliderect(plateform.rect) and self.rect.y > plateform.rect.y or self.rect.y < WIDTH:
         return self.rect.colliderect(platform.rect)
         

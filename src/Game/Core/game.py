@@ -47,7 +47,7 @@ class Game:
             i.update(self.player)
             i.addPlatform()
             self.screen.blit( i.image_plateform, i.rect)
-            if (self.player.detectCollision(i) or self.player.rect.y > HEIGHT) and self.player.isFalling:
+            if (self.player.detectCollision(i)) and self.player.isFalling:
                 self.player.jump()
             i.deletePlatform()
 
