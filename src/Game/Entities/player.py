@@ -19,7 +19,7 @@ class Player:
         self.isFalling = True
         self.isGoingUp = False
 
-        self.cooldown = 250
+        self.cooldown = 350
         self.last_animation_jump = 0
 
 
