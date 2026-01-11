@@ -21,7 +21,6 @@ class Game:
         self.scene = GameScene
 
         self.running = True
-        self.startGame()
 
 
 
@@ -38,7 +37,6 @@ class Game:
             self.clock.tick(FPS)
             self.update(mousePress)
             self.draw()
-            print(len(plateforms))
 
 
         pygame.quit()
@@ -48,25 +46,4 @@ class Game:
         self.scene.update(self, events)
 
     def draw(self):
-        self.screen.fill((0, 0, 0)) #Supprime tout les éléments
-        self.player.update()
-        self.screen.blit(self.backGround, (0, 0)) #On affiche le fond
-
-        for i in plateforms:
-            #i.detectCollision(self.player)
-            #i.update(self.player)
-            i.update(self.player)
-            i.addPlatform()
-            self.screen.blit( i.image_plateform, i.rect)
-            if (self.player.detectCollision(i) or self.player.rect.y > HEIGHT) and self.player.isFalling:
-                self.player.jump()
-            i.deletePlatform()
-
-        self.screen.blit( self.plateform.image_plateform, self.plateform.rect)
-        self.screen.blit(self.player.imagePlayer, self.player.rect) #On affiche le joueur
-        pygame.display.flip() #Permet d'afficher tout ce qui est "dessiner" en mémoire
-
-    def startGame(self):
-        for i in range(15):
-            self.plateform = Plateform(random.randrange(100, 700))
-            plateforms.append(self.plateform)
+        self.scene.draw(self)
