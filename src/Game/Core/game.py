@@ -1,4 +1,6 @@
 import pygame
+pygame.init() #On instantie tout les modules de pygame.
+
 from settings import WIDTH, HEIGHT, FPS
 from Utils.loader import load_image
 from Entities.player import Player
@@ -9,7 +11,6 @@ import random
 
 class Game:
     def __init__(self):
-        pygame.init() #On instantie tout les modules de pygame.
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("DoodleJump")
         self.clock = pygame.time.Clock()
@@ -18,7 +19,7 @@ class Game:
         GameScene.init()
         MenuScene.init()
         ReplayScene.init()
-        self.scene = GameScene
+        self.scene = MenuScene
 
         self.running = True
 

@@ -1,6 +1,7 @@
 import pygame
 from Entities.plateform import Plateform
 from Entities.player import Player
+from Entities.ui import Button, Text
 from Core.events import getKeyPress
 import random
 
@@ -37,15 +38,15 @@ class GameScene(Scene):
 
     @classmethod
     def init(cls):
-        cls.elements = {"player": Player(320, 600), "plateforms":[Plateform(random.randrange(100, 700)) for i in range(15)]}
+        cls.elements = {"plateforms":[Plateform(random.randrange(100, 700)) for _ in range(15)] + [Plateform()], "player": Player(320, 600)}
     
 
 class MenuScene(Scene):
     @classmethod
     def init(cls):
-        cls.elements = []
+        cls.elements = {"ui": [Button(300, 400, "Assets/Image/button_play.png"), Text(62, 100, "DoodleJump", True)]}
 
 class ReplayScene(Scene):
     @classmethod
     def init(cls):
-        cls.elements = []
+        cls.elements = {"ui": [Button(300, 400, "Assets/image/button_menu.png"), Button(400, 500, "Assets/Image/button_playagain.png"), Text(62, 100, "DoodleJump", True)]}
