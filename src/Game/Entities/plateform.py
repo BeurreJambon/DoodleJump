@@ -18,6 +18,9 @@ class Plateform:
         if (plateformsList[-1].rect.y >= 0):
             self.plateform = Plateform(random.randint(-70, -60))
             plateformsList.append(self.plateform)
+        
+        if player.detectCollision(self) and player.isFalling:
+                player.jump()
 
         if self.rect.y > HEIGHT:
             plateformsList.remove(self)

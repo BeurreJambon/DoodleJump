@@ -13,11 +13,11 @@ class Scene:
             if type(element) == Player:
                 getKeyPress(element)
                 element.update()
-                element.jump()
             if type(element) == list:
                 for e in element:
                     if type(e) == Plateform:
                         e.update(cls.elements["player"], cls.elements["plateforms"])
+                        
 
     @classmethod
     def draw(cls, game):
