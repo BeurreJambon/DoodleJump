@@ -1,10 +1,13 @@
 from Utils.loader import load_image
 from settings import *
+import pygame
 
 class Player:
     def __init__(self, x, y):
-        self.imagePlayer_right = load_image("right_jump.png")
-        self.imagePlayer_left = load_image("left_jump.png")
+        self.imagePlayer_right = load_image("right.png")
+        self.imagePlayer_left = load_image("left.png")
+        self.imagePlayer_right_jump = load_image("right_jump.png")
+        self.imagePlayer_left_jump = load_image("left_jump.png")
         self.imagePlayer = self.imagePlayer_right
         self.velocity_y = 0  #Gravité
         self.velocity_x = 6
@@ -16,16 +19,43 @@ class Player:
         self.isFalling = True
         self.isGoingUp = False
 
+        self.cooldown = 350
+        self.last_animation_jump = 0
+
 
 
     def update(self):
+
+        now = pygame.time.get_ticks()
+ 
+
+        if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_left_jump):
+            self.imagePlayer = self.imagePlayer_left
+            print(type(self.last_animation_jump))
+            #self.last_animation_jump = now
+
+        if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_right_jump):
+            self.imagePlayer = self.imagePlayer_right
+            print(type(self.last_animation_jump))
+
+            #self.last_animation_jump = now
         if self.right_pressed == True:
             self.rect.x += self.velocity_x
-            self.imagePlayer = self.imagePlayer_right
+
+            if (now - self.last_animation_jump >= self.cooldown):
+                self.imagePlayer = self.imagePlayer_right
+            
+            else:
+                self.imagePlayer = self.imagePlayer_right_jump
         
         if self.left_pressed == True:
             self.rect.x -= self.velocity_x
-            self.imagePlayer = self.imagePlayer_left
+
+            if (now - self.last_animation_jump >= self.cooldown):
+                self.imagePlayer = self.imagePlayer_left
+
+            else:
+                self.imagePlayer = self.imagePlayer_left_jump
 
 
         self.rect.y += self.velocity_y
@@ -45,17 +75,15 @@ class Player:
 
         if self.rect.x < -55:
             self.rect.x = WIDTH 
-
-
-
+        
 
     def jump(self):
             self.velocity_y = self.jump_force
             self.isFalling = False
         
     def detectCollision(self, platform):
-        #if self.rect.colliderect(plateform.rect) and self.rect.y > plateform.rect.y or self.rect.y < WIDTH:
         return self.rect.colliderect(platform.rect)
         
     def draw(self, game):
         game.screen.blit(self.imagePlayer, self.rect) #On affiche le joueur
+        

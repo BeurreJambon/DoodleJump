@@ -3,6 +3,7 @@ from Entities.plateform import Plateform
 from Entities.player import Player
 from Entities.ui import Button, Text
 from Core.events import getKeyPress
+from settings import *
 import random
 
 class Scene:
@@ -38,7 +39,7 @@ class GameScene(Scene):
 
     @classmethod
     def init(cls):
-        cls.elements = {"plateforms":[Plateform(random.randrange(100, 700)) for _ in range(15)] + [Plateform()], "player": Player(320, 600)}
+        cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "player": Player(320, 600)}
     
 
 class MenuScene(Scene):
