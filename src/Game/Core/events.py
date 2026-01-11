@@ -5,4 +5,3 @@ def getKeyPress(player):
 
     player.left_pressed = keys[pygame.K_LEFT]
     player.right_pressed = keys[pygame.K_RIGHT]
-    

@@ -56,3 +56,5 @@ class Player:
     def detectCollision(self, platform):
         return self.rect.colliderect(platform.rect)
         
+    def draw(self, game):
+        game.screen.blit(self.imagePlayer, self.rect) #On affiche le joueur
