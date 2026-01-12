@@ -11,3 +11,6 @@ def load_image(image):
 def load_sprite(sprite_sheet, x, y, width, height):
     sprite = sprite_sheet.subsurface((x, y, width, height))
     return sprite.copy()  #copy() permet de créer une vrai image indépendante du sprite sheet
+
+def define_font(font, size):
+    return pygame.font.Font(font, size)

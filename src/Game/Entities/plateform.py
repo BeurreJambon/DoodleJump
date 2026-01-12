@@ -14,6 +14,7 @@ class Plateform:
         if player.isGoingUp and player.rect.y <= 300:
             self.rect.y -= player.velocity_y
             player.rect.y = 300
+            player.score += 1
 
     
         if (plateformsList[-1].rect.y >= 0):

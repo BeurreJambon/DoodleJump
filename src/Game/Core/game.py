@@ -15,11 +15,12 @@ class Game:
         pygame.display.set_caption("DoodleJump")
         self.clock = pygame.time.Clock()
         self.backGround = load_image("BackGround.png") # load() stock en mémoire
+        self.topBarScore = load_image("top_score_bar.png")
 
         GameScene.init()
         MenuScene.init()
         ReplayScene.init()
-        self.scene = MenuScene
+        self.scene = GameScene
 
         self.running = True
 

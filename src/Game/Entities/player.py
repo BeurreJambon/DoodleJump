@@ -21,7 +21,7 @@ class Player:
 
         self.cooldown = 350
         self.last_animation_jump = 0
-
+        self.score = 0
 
 
     def update(self):
