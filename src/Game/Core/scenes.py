@@ -1,5 +1,5 @@
 import pygame
-from Entities.plateform import Plateform
+from Entities.plateform import Plateform, MovingPlatform
 from Entities.player import Player
 from Entities.ui import Button, Text
 from Core.events import getKeyPress
@@ -17,7 +17,7 @@ class Scene:
                 element.update()
             if type(element) == list:
                 for e in element:
-                    if type(e) == Plateform:
+                    if type(e) == Plateform or type(e) == MovingPlatform:
                         e.update(cls.elements["player"], cls.elements["plateforms"])
             if type(element) == Text:
                 element.update(cls.elements["player"].score)
