@@ -7,9 +7,10 @@ class Plateform:
     def __init__(self, y = 600, x = random.randrange(30, WIDTH - 30), y_sprite_sheet = 0):
         self.sprite_sheet = load_image("game_tiles.png")
         self.y_spriteSheet = y_sprite_sheet
-        self.image_plateform = load_sprite(self.sprite_sheet, 0, self.y_spriteSheet, 60, 16)
+        self.image_plateform = load_sprite(self.sprite_sheet, 1, self.y_spriteSheet, 58, 16)
         self.rect = self.image_plateform.get_rect(center = (x, y))
         self.isOnPlateform = False
+        self.hasJump = False
 
     def update(self, player, plateformsList):
         self.handle_scroll(player)
@@ -25,13 +26,14 @@ class Plateform:
     
     def create_new_platform(self, plateformsList):
         if (plateformsList[-1].rect.y >= 0):
-            self.plateform = MovingPlatform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
-            plateformsList.append(self.plateform)
+            self.choose_platform(plateformsList)
+
 
     def handle_collision(self, player):
         if player.detectCollision(self) and player.isFalling and player.rect.bottom <= self.rect.top + 15:
             player.rect.bottom = self.rect.top
             player.jump()
+            self.hasJump = True
             now = pygame.time.get_ticks()
 
             if player.imagePlayer == player.imagePlayer_right:
@@ -45,6 +47,20 @@ class Plateform:
     def delete_platform(self, plateformsList):
             if self.rect.y > HEIGHT:
                 plateformsList.remove(self)
+
+    def choose_platform(self, plateformsList):
+            r = random.random()
+            if r < 0.60:
+                self.plateform = Plateform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
+            
+            elif r < 0.85:
+                self.plateform = MovingPlatform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
+
+            else:
+                 self.plateform = Whiteplatform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
+
+                 
+            plateformsList.append(self.plateform)
 
     def draw(self, game):
         game.screen.blit(self.image_plateform, self.rect)
@@ -65,3 +81,12 @@ class MovingPlatform(Plateform):
             self.rect.x += self.speed
             if self.rect.left <= 0 or self.rect.right >= WIDTH:
                 self.speed *= -1
+
+class Whiteplatform(Plateform):
+     def __init__(self, y = 600, x = random.randrange(30, WIDTH - 30)):
+          super().__init__(y, x, y_sprite_sheet = 55)
+
+     def update(self, player, plateformsList):
+        super().update(player, plateformsList)  # logique de base
+        if self.hasJump:
+             plateformsList.remove(self)
