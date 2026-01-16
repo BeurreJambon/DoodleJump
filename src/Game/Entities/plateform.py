@@ -2,6 +2,7 @@ from Utils.loader import load_image, load_sprite
 from settings import *
 import random
 import pygame
+import math
 
 class Plateform:
     def __init__(self, y = 600, x = random.randrange(30, WIDTH - 30), y_sprite_sheet = 0):
@@ -12,9 +13,10 @@ class Plateform:
         self.isOnPlateform = False
         self.hasJump = False
 
+
     def update(self, player, plateformsList):
         self.handle_scroll(player)
-        self.create_new_platform(plateformsList)
+        self.create_new_platform(plateformsList, player)
         self.handle_collision(player)
         self.delete_platform(plateformsList)
 
@@ -23,10 +25,16 @@ class Plateform:
             self.rect.y -= player.velocity_y
             player.rect.y = 300
             player.score += 1
+
+            if (player.score >= player.niveau * 1000):
+                 player.niveau += 1
+                 print(player.niveau)
+
+                      
     
-    def create_new_platform(self, plateformsList):
+    def create_new_platform(self, plateformsList, player):
         if (plateformsList[-1].rect.y >= 0):
-            self.choose_platform(plateformsList)
+            self.choose_platform(plateformsList, player)
 
 
     def handle_collision(self, player):
@@ -48,17 +56,19 @@ class Plateform:
             if self.rect.y > HEIGHT:
                 plateformsList.remove(self)
 
-    def choose_platform(self, plateformsList):
+    def choose_platform(self, plateformsList, player):
             r = random.random()
-            if r < 0.60:
-                self.plateform = Plateform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
+            #if self.niveau -10 > 0: 
             
-            elif r < 0.85:
+            if  r <= player.probaMovingPlatform():
                 self.plateform = MovingPlatform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
 
-            else:
-                 self.plateform = Whiteplatform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
+            elif r <= player.probaMovingPlatform() + player.probaWhitePlatform():
+                self.plateform = Whiteplatform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
 
+            else:
+                 self.plateform = Plateform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
+                 
                  
             plateformsList.append(self.plateform)
 

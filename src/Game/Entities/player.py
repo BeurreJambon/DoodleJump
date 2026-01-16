@@ -1,6 +1,7 @@
 from Utils.loader import load_image
 from settings import *
 import pygame
+import math
 
 class Player:
     def __init__(self, x, y):
@@ -18,10 +19,13 @@ class Player:
         self.right_pressed = False
         self.isFalling = True
         self.isGoingUp = False
+        self.can_white_platform_appears = False
+        self.can_moving_platform_appears = False
 
         self.cooldown = 350
         self.last_animation_jump = 0
         self.score = 0
+        self.niveau = 0
 
 
     def update(self):
@@ -31,12 +35,10 @@ class Player:
 
         if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_left_jump):
             self.imagePlayer = self.imagePlayer_left
-            print(type(self.last_animation_jump))
             #self.last_animation_jump = now
 
         if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_right_jump):
             self.imagePlayer = self.imagePlayer_right
-            print(type(self.last_animation_jump))
 
             #self.last_animation_jump = now
         if self.right_pressed == True:
@@ -86,4 +88,25 @@ class Player:
         
     def draw(self, game):
         game.screen.blit(self.imagePlayer, self.rect) #On affiche le joueur
+
+    def probaWhitePlatform(self):
+        if self.niveau > 25:
+            self.can_white_platform_appears = True
+            if self.niveau >= 127:
+                return math.log(142 - 25, 1.21) / 25 / 2
+            
+            return math.log(self.niveau -25, 1.21)/ 25 /2
+        return 0
+        
+    def probaMovingPlatform(self):
+        print(123)
+        if self.niveau > 10:
+            print(1234)
+            self.can_moving_platform_appears = True 
+            if self.niveau >= 125:
+                return math.log(127 - 10, 1.21) / 25 / 2
+            print(12345)
+            return math.log(self.niveau -10, 1.21)/ 25 /2
+        return 0
+            
         
