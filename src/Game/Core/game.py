@@ -5,6 +5,7 @@ from settings import WIDTH, HEIGHT, FPS
 from Utils.loader import load_image
 from Entities.player import Player
 from Entities.plateform import Plateform
+from Entities.bullet import Bullet
 from Core.events import getKeyPress
 from Core.scenes import GameScene, MenuScene, ReplayScene
 import random
@@ -34,6 +35,10 @@ class Game:
                     self.running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mousePress = event.dict["pos"]
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        GameScene.elements["player"].shoot(GameScene.elements["bullets"])
+                        print("Espace pressé une fois")
 
 
             self.clock.tick(FPS)
