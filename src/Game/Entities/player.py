@@ -31,12 +31,10 @@ class Player:
 
         if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_left_jump):
             self.imagePlayer = self.imagePlayer_left
-            print(type(self.last_animation_jump))
             #self.last_animation_jump = now
 
         if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_right_jump):
             self.imagePlayer = self.imagePlayer_right
-            print(type(self.last_animation_jump))
 
             #self.last_animation_jump = now
         if self.right_pressed == True:

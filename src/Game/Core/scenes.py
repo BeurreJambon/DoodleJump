@@ -18,9 +18,12 @@ class Scene:
             if type(element) == list:
                 for e in element:
                     if type(e) == Plateform or type(e) == MovingPlatform or type(e) == Whiteplatform:
-                        e.update(cls.elements["player"], cls.elements["plateforms"])
+                        e.update(cls.elements)
             if type(element) == Text:
-                element.update(cls.elements["player"].score)
+                element.update(cls.elements)
+
+            if type(element) == Button:
+                element.update(game, events)
                     
                         
 
@@ -45,13 +48,19 @@ class GameScene(Scene):
     def init(cls):
         cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "player": Player(320, 600), "ui": Text(10, 10, "banane", 30,False)}
     
+    @classmethod
+    def update(cls, game, events):
+        super().update(game, events)
+        if cls.elements["player"].rect.y > HEIGHT:
+            game.scene = ReplayScene
+
 
 class MenuScene(Scene):
     @classmethod
     def init(cls):
-        cls.elements = {"ui": [Button(300, 400, "Assets/Image/button_play.png"), Text(62, 100, "DoodleJump", 100,True)]}
+        cls.elements = {"playButton": Button(300, 400, "Assets/Image/button_play.png", GameScene), "title": Text(62, 100, "DoodleJump", 100,True)}
 
 class ReplayScene(Scene):
     @classmethod
     def init(cls):
-        cls.elements = {"ui": [Button(300, 400, "Assets/image/button_menu.png"), Button(400, 500, "Assets/Image/button_playagain.png"), Text(62, 100, "DoodleJump", True)]}
+        cls.elements = {"menuButton": Button(300, 400, "Assets/image/button_menu.png", MenuScene), "replayButton": Button(400, 500, "Assets/Image/button_playagain.png", GameScene), "title": Text(62, 100, "DoodleJump", True)}
