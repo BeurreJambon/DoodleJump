@@ -37,7 +37,9 @@ class Text:
     def draw(self, game):
         game.screen.blit(self.render, self.coords)
 
-    def update(self, elements):  
-        if self.isScore:      
-            self.textContent = str(elements["player"].score)
-            self.render = self.font.render(self.textContent, False, pygame.Color(0, 0, 0))
+    def update(self, text):  
+        #if self.isScore:  
+        #    print(123)
+        self.textContent = str(text)
+        self.render = self.font.render(self.textContent, False, pygame.Color(0, 0, 0))
+            

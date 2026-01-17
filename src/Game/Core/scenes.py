@@ -12,7 +12,7 @@ class Scene:
 
     @classmethod # fonction static
     def update(cls, game, events):
-        for element in cls.elements.values():
+        for key, element in cls.elements.items():
             if type(element) == Player:
                 getKeyPress(element)
                 element.update()
@@ -22,9 +22,8 @@ class Scene:
                         e.update(cls.elements)
                     if type(e) == Bullet:
                         e.update(cls.elements["bullets"])
-            if type(element) == Text:
-                element.update(cls.elements)
-
+            if type(element) == Text and key == "ui":
+                element.update(cls.elements["player"].score)
             if type(element) == Button:
                 element.update(game, events)
                     
@@ -48,7 +47,7 @@ class Scene:
 class GameScene(Scene):
     @classmethod
     def init(cls):
-        cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "player": Player(320, 600), "ui": Text(10, 10, "banane", 30,False)}
+        cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "player": Player(320, 600), "ui": Text(10, 10, "banane", 30,False), "bullets":[]}
     
     @classmethod
     def update(cls, game, events):

@@ -4,7 +4,6 @@ from Utils.loader import load_image
 from Entities.bullet import Bullet
 from settings import *
 
-
 class Player:
     def __init__(self, x, y):
         self.imagePlayer_right = load_image("right.png")
