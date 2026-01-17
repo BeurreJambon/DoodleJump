@@ -1,7 +1,9 @@
-from Utils.loader import load_image
-from settings import *
 import pygame
 import math
+from Utils.loader import load_image
+from Entities.bullet import Bullet
+from settings import *
+
 
 class Player:
     def __init__(self, x, y):
@@ -9,11 +11,12 @@ class Player:
         self.imagePlayer_left = load_image("left.png")
         self.imagePlayer_right_jump = load_image("right_jump.png")
         self.imagePlayer_left_jump = load_image("left_jump.png")
+        self.imagePlayer_shoot = load_image("shoot.png")
         self.imagePlayer = self.imagePlayer_right
         self.velocity_y = 0  #Gravité
         self.velocity_x = 6
         self.jump_force = -15
-        self.rect = self.imagePlayer.get_rect(midbottom = (x, y)) # x et y Donne la position de où sera placer le notre image (coordonée du centre de l'image) dans la scène
+        self.rect = self.imagePlayer.get_rect(midbottom = (x, y)) # x et y Donne la position de où sera placer notre image (coordonée du centre de l'image) dans la scène
         # get_rect -> Crée un rectangle exactement de la taille de l’image
         self.left_pressed = False
         self.right_pressed = False
@@ -24,6 +27,7 @@ class Player:
 
         self.cooldown = 350
         self.last_animation_jump = 0
+        self.last_animation_shoot = 0
         self.score = 0
         self.niveau = 0
 
@@ -31,22 +35,23 @@ class Player:
     def update(self):
 
         now = pygame.time.get_ticks()
- 
-
-        if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_left_jump):
+        if  now - self.last_animation_shoot >= self.cooldown and self.imagePlayer == self.imagePlayer_shoot:
             self.imagePlayer = self.imagePlayer_left
-            #self.last_animation_jump = now
+        # si le cooldown est dépassé
+        if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_left_jump) and (now - self.last_animation_shoot >= self.cooldown):
+            self.imagePlayer = self.imagePlayer_left
 
-        if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_right_jump):
+        if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_right_jump) and (now - self.last_animation_shoot >= self.cooldown):
             self.imagePlayer = self.imagePlayer_right
 
-            #self.last_animation_jump = now
+
+        #si le joueur se déplace
         if self.right_pressed == True:
             self.rect.x += self.velocity_x
 
             if (now - self.last_animation_jump >= self.cooldown):
                 self.imagePlayer = self.imagePlayer_right
-            
+
             else:
                 self.imagePlayer = self.imagePlayer_right_jump
         
@@ -58,6 +63,11 @@ class Player:
 
             else:
                 self.imagePlayer = self.imagePlayer_left_jump
+
+        if (now - self.last_animation_shoot <= self.cooldown):
+                self.imagePlayer = self.imagePlayer_shoot
+
+
 
 
         self.rect.y += self.velocity_y
@@ -99,14 +109,19 @@ class Player:
         return 0
         
     def probaMovingPlatform(self):
-        print(123)
         if self.niveau > 10:
-            print(1234)
             self.can_moving_platform_appears = True 
             if self.niveau >= 125:
                 return math.log(127 - 10, 1.21) / 25 / 2
-            print(12345)
             return math.log(self.niveau -10, 1.21)/ 25 /2
         return 0
+    
+    def shoot(self, bullets):
+        now = pygame.time.get_ticks()
+
+        self.bullet = Bullet(self.rect.x,  self.rect.y)
+        bullets.append(self.bullet)
+        self.imagePlayer = self.imagePlayer_shoot
+        self.last_animation_shoot = now
             
         

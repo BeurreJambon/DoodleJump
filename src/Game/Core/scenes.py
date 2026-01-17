@@ -2,6 +2,7 @@ import pygame
 from Entities.plateform import Plateform, MovingPlatform, Whiteplatform
 from Entities.player import Player
 from Entities.ui import Button, Text
+from Entities.bullet import Bullet
 from Core.events import getKeyPress
 from settings import *
 import random
@@ -19,6 +20,8 @@ class Scene:
                 for e in element:
                     if type(e) == Plateform or type(e) == MovingPlatform or type(e) == Whiteplatform:
                         e.update(cls.elements["player"], cls.elements["plateforms"])
+                    if type(e) == Bullet:
+                        e.update(cls.elements["bullets"])
             if type(element) == Text:
                 element.update(cls.elements["player"].score)
                     
@@ -28,7 +31,7 @@ class Scene:
     def draw(cls, game):
         game.screen.fill((0, 0, 0)) #Supprime tout les éléments
         game.screen.blit(game.backGround, (0, 0)) #On affiche le fond
-        game.screen.blit(game.topBarScore, (0, 0))
+        game.screen.blit(game.topBarScore, (0, 0)) # et la barre de score
 
         for element in cls.elements.values():
             if type(element) == list:
@@ -40,10 +43,9 @@ class Scene:
         pygame.display.flip()
 
 class GameScene(Scene):
-
     @classmethod
     def init(cls):
-        cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "player": Player(320, 600), "ui": Text(10, 10, "banane", 30,False)}
+        cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "player": Player(320, 600), "ui": Text(10, 10, "banane", 30,False), "bullets": []}
     
 
 class MenuScene(Scene):
