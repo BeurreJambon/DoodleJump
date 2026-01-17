@@ -21,7 +21,7 @@ class Game:
         GameScene.init()
         MenuScene.init()
         ReplayScene.init()
-        self.scene = GameScene
+        self.scene = MenuScene
 
         self.running = True
 

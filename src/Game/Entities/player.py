@@ -40,6 +40,7 @@ class Player:
         # si le cooldown est dépassé
         if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_left_jump) and (now - self.last_animation_shoot >= self.cooldown):
             self.imagePlayer = self.imagePlayer_left
+            #self.last_animation_jump = now
 
         if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_right_jump) and (now - self.last_animation_shoot >= self.cooldown):
             self.imagePlayer = self.imagePlayer_right

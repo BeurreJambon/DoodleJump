@@ -13,12 +13,11 @@ class Plateform:
         self.isOnPlateform = False
         self.hasJump = False
 
-
-    def update(self, player, plateformsList):
-        self.handle_scroll(player)
-        self.create_new_platform(plateformsList, player)
-        self.handle_collision(player)
-        self.delete_platform(plateformsList)
+    def update(self, elements):
+        self.handle_scroll(elements["player"])
+        self.create_new_platform(elements["plateforms"], elements["player"])
+        self.handle_collision(elements["player"])
+        self.delete_platform(elements["plateforms"])
 
     def handle_scroll(self,player):
         if player.isGoingUp and player.rect.y <= 300:
@@ -83,8 +82,8 @@ class MovingPlatform(Plateform):
             #self.image_plateform = load_sprite(self.sprite_sheet, 0, 19 , 60, 16)
             #self.rect = self.image_plateform.get_rect(center = (x, y))
 
-        def update(self, player, plateformsList):
-            super().update(player, plateformsList)  # logique de base
+        def update(self, elements):
+            super().update(elements)  # logique de base
             self.move()
 
         def move(self):
@@ -96,7 +95,7 @@ class Whiteplatform(Plateform):
      def __init__(self, y = 600, x = random.randrange(30, WIDTH - 30)):
           super().__init__(y, x, y_sprite_sheet = 55)
 
-     def update(self, player, plateformsList):
-        super().update(player, plateformsList)  # logique de base
+     def update(self, elements):
+        super().update(elements)  # logique de base
         if self.hasJump:
-             plateformsList.remove(self)
+            elements["plateforms"].remove(self)
