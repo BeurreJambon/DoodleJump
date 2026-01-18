@@ -48,7 +48,7 @@ class Scene:
 class GameScene(Scene):
     @classmethod
     def init(cls):
-        cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "player": Player(320, 600), "ui": Text(10, 10, "banane", 30,False)}
+        cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "player": Player(320, 600), "ui": Text(10, 10, "banane", 30,False), "bullets": []}
     
     @classmethod
     def update(cls, game, events):
@@ -65,4 +65,4 @@ class MenuScene(Scene):
 class ReplayScene(Scene):
     @classmethod
     def init(cls):
-        cls.elements = {"menuButton": Button(300, 400, "Assets/image/button_menu.png", MenuScene), "replayButton": Button(400, 500, "Assets/Image/button_playagain.png", GameScene), "title": Text(62, 100, "DoodleJump", True)}
+        cls.elements = {"menuButton": Button(300, 400, "Assets/image/button_menu.png", MenuScene), "replayButton": Button(300, 500, "Assets/Image/button_playagain.png", GameScene), "title": Text(62, 100, "DoodleJump", True)}
