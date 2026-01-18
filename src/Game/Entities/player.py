@@ -93,8 +93,11 @@ class Player:
             self.velocity_y = self.jump_force
             self.isFalling = False
         
-    def detectCollision(self, platform):
+    def detectCollision_platform(self, platform):
         return self.rect.colliderect(platform.rect)
+
+    def detectCollision_spring(self, spring):
+        return self.rect.colliderect(spring.rect)
         
     def draw(self, game):
         game.screen.blit(self.imagePlayer, self.rect) #On affiche le joueur
