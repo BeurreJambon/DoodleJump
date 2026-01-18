@@ -1,4 +1,5 @@
 from Utils.loader import load_image, load_sprite
+from Entities.spring import Spring
 from settings import *
 import random
 import pygame
@@ -15,7 +16,7 @@ class Plateform:
 
     def update(self, elements):
         self.handle_scroll(elements["player"])
-        self.create_new_platform(elements["plateforms"], elements["player"])
+        self.create_new_platform(elements["plateforms"], elements["player"], elements["springs"])
         self.handle_collision(elements["player"])
         self.delete_platform(elements["plateforms"])
 
@@ -31,13 +32,14 @@ class Plateform:
 
                       
     
-    def create_new_platform(self, plateformsList, player):
+    def create_new_platform(self, plateformsList, player, springs):
         if (plateformsList[-1].rect.y >= 0):
-            self.choose_platform(plateformsList, player)
+            self.choose_platform(plateformsList, player, springs)
+
 
 
     def handle_collision(self, player):
-        if player.detectCollision(self) and player.isFalling and player.rect.bottom <= self.rect.top + 15:
+        if player.detectCollision_platform(self) and player.isFalling and player.rect.bottom <= self.rect.top + 15:
             player.rect.bottom = self.rect.top
             player.jump()
             self.hasJump = True
@@ -52,12 +54,11 @@ class Plateform:
                     player.last_animation_jump = now
 
     def delete_platform(self, plateformsList):
-            if self.rect.y > HEIGHT:
+            if self.rect.y > HEIGHT + 20:
                 plateformsList.remove(self)
 
-    def choose_platform(self, plateformsList, player):
+    def choose_platform(self, plateformsList, player, springs):
             r = random.random()
-            #if self.niveau -10 > 0: 
             
             if  r <= player.probaMovingPlatform():
                 self.plateform = MovingPlatform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
@@ -67,8 +68,10 @@ class Plateform:
 
             else:
                  self.plateform = Plateform(random.randint(-70, -60), random.randrange(30, WIDTH - 30))
-                 
-                 
+            
+            spring = Spring(self.plateform, 20, -10)
+            springs.append(spring)
+            
             plateformsList.append(self.plateform)
 
     def draw(self, game):

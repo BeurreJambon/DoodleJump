@@ -23,6 +23,7 @@ class Game:
         ReplayScene.init()
         self.scene = MenuScene
 
+
         self.running = True
 
 
@@ -38,7 +39,6 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         GameScene.elements["player"].shoot(GameScene.elements["bullets"])
-                        print("Espace pressé une fois")
 
 
             self.clock.tick(FPS)
