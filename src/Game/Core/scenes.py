@@ -70,4 +70,4 @@ class MenuScene(Scene):
 class ReplayScene(Scene):
     @classmethod
     def init(cls):
-        cls.elements = {"menuButton": Button(300, 400, "Assets/image/button_menu.png", MenuScene), "replayButton": Button(400, 500, "Assets/Image/button_playagain.png", GameScene), "title": Text(62, 100, "DoodleJump", True)}
+        cls.elements = {"menuButton": Button(300, 400, "Assets/image/button_menu.png", MenuScene), "replayButton": Button(300, 500, "Assets/Image/button_playagain.png", GameScene), "title": Text(62, 100, "DoodleJump", True)}
