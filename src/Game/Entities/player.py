@@ -21,6 +21,9 @@ class Player:
         self.right_pressed = False
         self.isFalling = True
         self.isGoingUp = False
+        self.isjetpack = False
+        self.begin_jetpack = 0
+
         self.can_white_platform_appears = False
         self.can_moving_platform_appears = False
 
@@ -32,10 +35,11 @@ class Player:
 
 
     def update(self):
-
+        print(self.rect.y)
         now = pygame.time.get_ticks()
         if  now - self.last_animation_shoot >= self.cooldown and self.imagePlayer == self.imagePlayer_shoot:
             self.imagePlayer = self.imagePlayer_left
+
         # si le cooldown est dépassé
         if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_left_jump) and (now - self.last_animation_shoot >= self.cooldown):
             self.imagePlayer = self.imagePlayer_left
@@ -66,12 +70,15 @@ class Player:
 
         if (now - self.last_animation_shoot <= self.cooldown):
                 self.imagePlayer = self.imagePlayer_shoot
-
-
+        
+        if self.isjetpack == True and now - self.begin_jetpack > 4000:
+            self.isjetpack = False
 
 
         self.rect.y += self.velocity_y
-        self.velocity_y += 0.35
+
+        if self.isjetpack == False:
+            self.velocity_y += 0.35
 
         if self.velocity_y > 0:
             self.isFalling = True
@@ -98,6 +105,9 @@ class Player:
 
     def detectCollision_spring(self, spring):
         return self.rect.colliderect(spring.rect)
+    
+    def detectCollision_jetpack(self, jetpack):
+        return self.rect.colliderect(jetpack.rect)
         
     def draw(self, game):
         game.screen.blit(self.imagePlayer, self.rect) #On affiche le joueur
@@ -126,5 +136,6 @@ class Player:
         bullets.append(self.bullet)
         self.imagePlayer = self.imagePlayer_shoot
         self.last_animation_shoot = now
+
             
         

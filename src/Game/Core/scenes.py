@@ -4,6 +4,7 @@ from Entities.player import Player
 from Entities.ui import Button, Text
 from Entities.spring import Spring
 from Entities.bullet import Bullet
+from Entities.jetpack import Jetpack
 from Core.events import getKeyPress
 from settings import *
 import random
@@ -25,6 +26,8 @@ class Scene:
                         e.update(cls.elements["bullets"])
                     if type(e) == Spring:
                         e.update(cls.elements["player"], cls.elements["springs"])
+                    if type(e) == Jetpack:
+                        e.update(cls.elements["player"], cls.elements["jetpacks"])
             if type(element) == Text and key == "ui":
                 element.update(cls.elements["player"].score)
             if type(element) == Button:
@@ -50,7 +53,7 @@ class Scene:
 class GameScene(Scene):
     @classmethod
     def init(cls):
-        cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "springs":[], "player": Player(320, 600), "ui": Text(10, 10, "banane", 30,False), "bullets":[]}
+        cls.elements = { "plateforms":[Plateform(random.randrange(30, WIDTH - 30),random.randrange(100, 700)) for i in range(15)] + [Plateform(650, 320)], "springs":[], "player": Player(320, 600), "jetpacks" : [], "ui": Text(10, 10, "banane", 30,False), "bullets":[]}
     
     @classmethod
     def update(cls, game, events):
