@@ -48,7 +48,6 @@ class Player:
         if (now - self.last_animation_jump >= self.cooldown) and (self.imagePlayer == self.imagePlayer_right_jump) and (now - self.last_animation_shoot >= self.cooldown):
             self.imagePlayer = self.imagePlayer_right
 
-
         #si le joueur se déplace
         if self.right_pressed == True:
             self.rect.x += self.velocity_x
@@ -74,7 +73,6 @@ class Player:
         if self.isjetpack == True and now - self.begin_jetpack > 4000:
             self.isjetpack = False
 
-
         self.rect.y += self.velocity_y
 
         if self.isjetpack == False:
@@ -83,7 +81,6 @@ class Player:
         if self.velocity_y > 0:
             self.isFalling = True
             self.isGoingUp = False
-
 
         if self.velocity_y < 0:
             self.isGoingUp = True
@@ -117,7 +114,6 @@ class Player:
             self.can_white_platform_appears = True
             if self.niveau >= 127:
                 return math.log(142 - 25, 1.21) / 25 / 2
-            
             return math.log(self.niveau -25, 1.21)/ 25 /2
         return 0
         
@@ -131,11 +127,7 @@ class Player:
     
     def shoot(self, bullets):
         now = pygame.time.get_ticks()
-
         self.bullet = Bullet(self.rect.x,  self.rect.y)
         bullets.append(self.bullet)
         self.imagePlayer = self.imagePlayer_shoot
         self.last_animation_shoot = now
-
-            
-        

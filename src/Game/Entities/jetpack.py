@@ -71,7 +71,7 @@ class Jetpack:
             self.rect.x = player.rect.x + 37
 
         self.rect.y = player.rect.y + 20
-    
+
     def draw(self, game):
         game.screen.blit(self.image_jetpack, self.rect)
 
