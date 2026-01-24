@@ -21,6 +21,7 @@ class Player:
         self.right_pressed = False
         self.isFalling = True
         self.isGoingUp = False
+        self.canCollide = True
         self.isjetpack = False
         self.begin_jetpack = 0
 
@@ -35,7 +36,6 @@ class Player:
 
 
     def update(self):
-        print(self.rect.y)
         now = pygame.time.get_ticks()
         if  now - self.last_animation_shoot >= self.cooldown and self.imagePlayer == self.imagePlayer_shoot:
             self.imagePlayer = self.imagePlayer_left
@@ -105,6 +105,9 @@ class Player:
     
     def detectCollision_jetpack(self, jetpack):
         return self.rect.colliderect(jetpack.rect)
+    
+    def detectCollision_enemy(self, enemy):
+        return self.rect.colliderect(enemy.rect)
         
     def draw(self, game):
         game.screen.blit(self.imagePlayer, self.rect) #On affiche le joueur

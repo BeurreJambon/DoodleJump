@@ -25,7 +25,7 @@ class Spring:
         self.deleteSpring(springs)
 
     def handle_collision(self, player):
-        if player.detectCollision_spring(self) and player.isFalling and player.rect.bottom <= self.rect.top + 15:
+        if player.detectCollision_spring(self) and player.isFalling and player.rect.bottom <= self.rect.top + 15 and player.canCollide:
             player.jump_force = -23
             player.jump()
             player.jump_force = -15

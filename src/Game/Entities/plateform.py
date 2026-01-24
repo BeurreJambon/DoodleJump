@@ -7,10 +7,6 @@ import pygame
 import math
 
 class Plateform:
-    spawnChanceSpring = 0.12
-    spawnChanceJetpacks = 0.01
-    position_platform_y = -70
-
     def __init__(self, y = 600, x = random.randrange(30, WIDTH - 30), y_sprite_sheet = 0):
         self.sprite_sheet = load_image("game_tiles.png")
         self.y_spriteSheet = y_sprite_sheet
@@ -33,7 +29,7 @@ class Plateform:
                  player.niveau += 1
 
     def handle_collision(self, player):
-        if player.detectCollision_platform(self) and player.isFalling and player.rect.bottom <= self.rect.top + 15:
+        if player.detectCollision_platform(self) and player.isFalling and player.rect.bottom <= self.rect.top + 15 and player.canCollide:
             player.rect.bottom = self.rect.top
             player.jump()
             self.hasJump = True

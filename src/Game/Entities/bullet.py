@@ -7,13 +7,16 @@ class Bullet:
         self.velocity = 15
 
     def update(self, listBullets):
-        self.rect.y -= self.velocity      
+        self.rect.y -= self.velocity  
 
         if self.rect.y < 0:
             self.deleteBullet(listBullets)
 
     def draw(self, game):
         game.screen.blit(self.image_bullet, self.rect)
+
+    def detectCollision(self, enemy):
+        return self.rect.colliderect(enemy.rect)
 
     def deleteBullet(self, listBullets):
         listBullets.remove(self)

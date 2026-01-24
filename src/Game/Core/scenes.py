@@ -31,7 +31,7 @@ class Scene:
                     if type(e) == Jetpack:
                         e.update(cls.elements["player"], cls.elements["jetpacks"])
                     if type(e) == Enemy:
-                        e.update()
+                        e.update(cls.elements["bullets"], cls.elements["enemies"], cls.elements["player"])
             if type(element) == Text and key == "ui":
                 element.update(cls.elements["player"].score)
             if type(element) == Button:
@@ -65,7 +65,7 @@ class GameScene(Scene):
                          "jetpacks" : [],
                          "ui": Text(10, 10, "banane", 30,False),
                          "bullets":[],
-                         "enemy" : [],
+                         "enemies" : [],
                          "systems" : { "spawner" : SpawnManager()} 
                          }
     
@@ -73,7 +73,7 @@ class GameScene(Scene):
     def update(cls, game, events):
         super().update(game, events)
 
-        cls.elements["systems"]["spawner"].update(cls.elements["plateforms"], cls.elements["player"], cls.elements["springs"], cls.elements["jetpacks"])
+        cls.elements["systems"]["spawner"].update(cls.elements["plateforms"], cls.elements["player"], cls.elements["springs"], cls.elements["jetpacks"], cls.elements["enemies"])
 
         if cls.elements["player"].rect.y > HEIGHT:
             game.scene = ReplayScene

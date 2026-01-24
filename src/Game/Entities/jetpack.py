@@ -48,7 +48,7 @@ class Jetpack:
         self.remove_jetpacks(player, jetpacks)
 
     def handle_collision(self, player, jetpacks):
-        if player.detectCollision_jetpack(self) and player.isjetpack == False:
+        if player.detectCollision_jetpack(self) and player.isjetpack == False and player.canCollide:
             player.begin_jetpack = pygame.time.get_ticks()
             player.velocity_y = -22
             self.hasCollide = True
