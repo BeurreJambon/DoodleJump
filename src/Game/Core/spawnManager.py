@@ -22,7 +22,7 @@ class SpawnManager:
     def update(self, plateformsList, player, springs, jetpacks, enemies):
         self.create_new_platform(plateformsList, player, springs, jetpacks)
         self.CanEnemySpawn(enemies)
-        print(SpawnManager.randomEnemy)
+        #print(SpawnManager.randomEnemy)
 
     def CanEnemySpawn(self, enemies):
         SpawnManager.randomEnemy = random.random()    
@@ -42,7 +42,7 @@ class SpawnManager:
         randomSpring = random.random()
         randomJetpack = random.random()
         self.position_axe_y_platform = random.uniform(SpawnManager.position_platform_y, -70.0)
-                
+        
         if  r <= player.probaMovingPlatform():
             self.plateform = MovingPlatform(self.position_axe_y_platform, random.randrange(30, WIDTH - 30))
 
@@ -73,7 +73,6 @@ class SpawnManager:
                 jetpack = Jetpack(self.plateform, 20, -35)
                 jetpacks.append(jetpack)
 
-            plateformsList.append(self.plateform)
 
             if SpawnManager.spawnChanceJetpacks > 0.005:
                 SpawnManager.spawnChanceJetpacks *= self.decay
@@ -87,6 +86,8 @@ class SpawnManager:
             if SpawnManager.position_platform_y >= -300:
                 SpawnManager.position_platform_y -= 0.1
            # print(self.position_axe_y_platform)
+           
+        plateformsList.append(self.plateform)
 
             
 
