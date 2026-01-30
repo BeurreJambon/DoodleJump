@@ -32,7 +32,7 @@ class Enemy:
             if bullet.detectCollision(self):
                 enemies.remove(self)
 
-         if player.detectCollision_enemy(self):
+         if player.detectCollision_enemy(self) and player.isjetpack == False:
             player.canCollide = False
 
     def handle_scroll(self, player):

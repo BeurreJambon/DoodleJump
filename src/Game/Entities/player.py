@@ -121,10 +121,12 @@ class Player:
         return 0
         
     def probaMovingPlatform(self):
+        #print(self.niveau)
         if self.niveau > 10:
             self.can_moving_platform_appears = True 
             if self.niveau >= 125:
                 return math.log(127 - 10, 1.21) / 25 / 2
+            print(math.log(self.niveau -10, 1.21)/ 25 /2)
             return math.log(self.niveau -10, 1.21)/ 25 /2
         return 0
     
