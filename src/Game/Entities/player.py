@@ -5,7 +5,7 @@ from Entities.bullet import Bullet
 from settings import *
 
 class Player:
-    def __init__(self, x, y):
+    def __init__(self, x, y, isControllable=True):
         self.imagePlayer_right = load_image("right.png")
         self.imagePlayer_left = load_image("left.png")
         self.imagePlayer_right_jump = load_image("right_jump.png")
@@ -24,6 +24,8 @@ class Player:
         self.canCollide = True
         self.isjetpack = False
         self.begin_jetpack = 0
+
+        self.isControllable = isControllable # Là c'est pour pouvoir ajouter un doodle qui bouge pas au menu
 
         self.can_white_platform_appears = False
         self.can_moving_platform_appears = False
