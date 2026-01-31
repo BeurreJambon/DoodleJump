@@ -20,7 +20,9 @@ class Plateform:
         self.handle_collision(elements["player"])
         self.delete_platform(elements["plateforms"])
 
-    def handle_scroll(self,player):
+    def handle_scroll(self, player):
+        if not player.isControllable: # Si le joueur est pas controllé (menu) pas de changement
+             return
         if player.isGoingUp and player.rect.y <= 300:
             self.rect.y -= player.velocity_y
             player.rect.y = 300
