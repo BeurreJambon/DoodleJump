@@ -54,3 +54,12 @@ class Game:
 
     def draw(self):
         self.scene.draw(self)
+
+    def get_input(self, player):
+        velocity_x = player.velocity_x
+        velocity_y = player.velocity_y
+        position_y = player.rect.y
+        position_x = player.rect.x
+
+        return (velocity_x, velocity_y, position_x,  position_y)
+        
